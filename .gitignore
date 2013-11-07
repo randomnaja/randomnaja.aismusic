@@ -1,0 +1,6 @@
+toneconfig.yaml
+target/
+idea/
+*.iml
+*.ipr
+*.iws
