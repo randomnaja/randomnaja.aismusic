@@ -35,10 +35,11 @@ public class MainPageService extends Service<MainConfiguration> {
         });
 
         HttpClientConfiguration config = new HttpClientConfiguration();
-        config.setTimeout(Duration.seconds(5));
+        config.setTimeout(Duration.seconds(10));
         final HttpClient httpClient = new HttpClientBuilder().using(config).build();
         ExternalServiceResource externalHttp = new ExternalServiceResource(httpClient, configuration);
         environment.addResource(externalHttp);
         environment.addResource(new MainPageResource(externalHttp));
+        environment.addResource(new DownloadSongResource(externalHttp));
     }
 }

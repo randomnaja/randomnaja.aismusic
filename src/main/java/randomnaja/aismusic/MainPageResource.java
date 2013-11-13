@@ -34,7 +34,7 @@ public class MainPageResource {
         if (keyword != null) {
             String xmlRes = externalServiceResource.searchSong(keyword);
 
-            List<Content> contents = SongsListXmlReaderUtil.deSerializeXmlSongsList(xmlRes);
+            List<Content> contents = XmlReaderUtil.deSerializeXmlSongsList(xmlRes);
 
             return new IndexView(contents, keyword);
         }

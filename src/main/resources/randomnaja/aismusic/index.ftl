@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="contents" type="java.util.List<randomnaja.aismusic.xmlpojo.Content>" -->
+<#setting url_escaping_charset='UTF-8'>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -60,7 +61,7 @@
                     <img src="${each.cover}" alt="Album Cover of ${each.artistTH?html}" class="img-thumbnail" />
                 </div>
                 <div class="col-md-9">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" action="download.html" method="post" target="_blank">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">GMMDCode</label>
                             <div class="col-sm-10">
@@ -90,13 +91,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Sample songls</label>
+                            <label class="col-sm-2 control-label">Sample song</label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">
                                     <a class="media" href="${each.preview}">Click to listen</a>
                                 </p>
                             </div>
                         </div>
+                        <input type="hidden" name="gmmdCode" value="${each.gmmdCode !}" />
+                        <input type="hidden" name="cpId" value="${each.cpId !}" />
+                        <input type="hidden" name="fileName" value="${(each.songNameTH !)?url}%20-%20${(each.artistTH !)?url}.mp3" />
+                        <button type="submit" class="btn btn-default">Download</button>
                     </form>
                 </div>
             </div>

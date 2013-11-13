@@ -6,13 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.apache.commons.io.IOUtils;
 import randomnaja.aismusic.xmlpojo.Content;
+import randomnaja.aismusic.xmlpojo.DownloadXmlResult;
 
 import java.io.FileInputStream;
 import java.util.List;
 
-public final class SongsListXmlReaderUtil {
+public final class XmlReaderUtil {
 
-    private SongsListXmlReaderUtil() {
+    private XmlReaderUtil() {
         //intention
     }
 
@@ -25,13 +26,18 @@ public final class SongsListXmlReaderUtil {
         return mapper.readValue(xml, typeRef);
     }
 
+    public static DownloadXmlResult deSerializeXmlDownloadSong(String xml) throws Exception {
+        ObjectMapper mapper = new XmlMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        return mapper.readValue(xml, DownloadXmlResult.class);
+    }
+
     public static void main(String[] args) throws Exception {
-        String xml = IOUtils.toString(new FileInputStream("/home/tone/Desktop/AISMusic/searchres.xml"));
+        String xml = IOUtils.toString(new FileInputStream("/tmp/example.xml"));
 
-        List<Content> contents = deSerializeXmlSongsList(xml);
+        DownloadXmlResult downloadXmlResult = deSerializeXmlDownloadSong(xml);
 
-        for (Content each : contents) {
-            System.out.println(each.getArtistTH());
-        }
+        System.out.println(downloadXmlResult.getDlLink());
     }
 }
